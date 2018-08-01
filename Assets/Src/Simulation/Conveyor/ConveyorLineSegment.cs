@@ -36,5 +36,12 @@ namespace Simulation
             this.line = line;
             this.lineOffset = lineOffset;
         }
+
+        public ItemProcessor outputLock => null;
+
+        public void UpdateInputLock()
+        {
+            line.UpdateLockState();
+        }
     }
 }

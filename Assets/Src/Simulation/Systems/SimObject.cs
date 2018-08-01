@@ -21,5 +21,7 @@ namespace Simulation
             this.world = world;
             world.Add(this);
         }
+
+        public virtual void Update() {}
     }
 }

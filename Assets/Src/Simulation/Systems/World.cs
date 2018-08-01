@@ -1,38 +1,30 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Simulation
 {
     public class World
-    {
-        private class EventHandlers<T> : HashSet<T> where T : class
-        {
-            public void AddHandler<TObj>(TObj obj) where TObj : SimObject
-            {
-                var casted = obj as T;
-                if (casted != null)
-                    Add(casted);
-            }
-            
-            public void RemoveHandler<TObj>(TObj obj) where TObj : SimObject
-            {
-                var casted = obj as T;
-                if (casted != null)
-                    Remove(casted);
-            }
-        }
-        
+    {        
         private readonly HashSet<SimObject> objects = new HashSet<SimObject>();
-        private readonly EventHandlers<IWorldStart> worldStart = new EventHandlers<IWorldStart>();
-        private readonly EventHandlers<ITick> tickHandlers = new EventHandlers<ITick>();
+        private HashSet<SimObject> thisTickUpdateQueue = new HashSet<SimObject>();
+        private HashSet<SimObject> nextTickUpdateQueue = new HashSet<SimObject>();
 
         public int tick { get; private set; }
 
         public void Tick()
         {
             ++tick;
-            foreach (var tickHandler in tickHandlers)
-                tickHandler.Tick();
+            var tmp = thisTickUpdateQueue;
+            thisTickUpdateQueue = nextTickUpdateQueue;
+            nextTickUpdateQueue = tmp;
+            
+            foreach (var tickHandler in thisTickUpdateQueue)
+                tickHandler.Update();
+            thisTickUpdateQueue.Clear();
+        }
+
+        public void QueueUpdate(SimObject obj)
+        {
+            nextTickUpdateQueue.Add(obj);
         }
 
         public readonly ConveyorLineBuilder conveyors;
@@ -45,17 +37,11 @@ namespace Simulation
         public void Add(SimObject simObject)
         {
             objects.Add(simObject);
-            worldStart.AddHandler(simObject);
-            tickHandlers.AddHandler(simObject);
         }
 
         public void Remove(SimObject simObject)
         {
-            if (objects.Remove(simObject))
-            {
-                worldStart.RemoveHandler(simObject);
-                tickHandlers.RemoveHandler(simObject);
-            }
+            objects.Remove(simObject);
         }
     }
 }

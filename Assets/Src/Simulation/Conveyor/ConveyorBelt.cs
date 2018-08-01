@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-
-namespace Simulation
+﻿namespace Simulation
 {
     public class ConveyorBelt : Machine
     {   
@@ -13,6 +10,7 @@ namespace Simulation
         public override void Init(World world)
         {
             segment = new ConveyorLineSegment(machinePos.pos, 3, dh, machinePos.direction.Relative(bend), machinePos.direction);
+            world.conveyors.AddSegment(segment);
             attachment?.Init(world);
             base.Init(world);
         }

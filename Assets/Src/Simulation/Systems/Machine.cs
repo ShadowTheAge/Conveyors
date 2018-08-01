@@ -2,7 +2,7 @@
 
 namespace Simulation
 {
-    public abstract class Machine : SimObject
+    public abstract class Machine : ItemProcessor
     {
         protected MachinePos machinePos;
     }

@@ -2,7 +2,7 @@
 
 namespace Simulation
 {
-    public class ConveyorLine : SimObject
+    public class ConveyorLine : ItemProcessor
     {
         public ConveyorLine(ConveyorLineBuilder builder, params ConveyorLineSegment[] segments)
         {
@@ -23,6 +23,8 @@ namespace Simulation
 
         private readonly ConveyorLineBuilder builder;
         private ConveyorLineSegment[] segments;
+        private ItemProcessor finalTarget;
+        
         private Item[] ringBuffer;
         private int offset;
         private int _length;
