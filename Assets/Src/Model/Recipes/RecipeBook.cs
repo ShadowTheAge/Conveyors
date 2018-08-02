@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Simulation;
 
-namespace Next
+namespace Model
 {
     public class RecipeBook
     {

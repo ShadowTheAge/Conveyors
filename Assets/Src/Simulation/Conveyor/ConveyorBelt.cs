@@ -1,4 +1,6 @@
-﻿namespace Simulation
+﻿using Model;
+
+namespace Simulation
 {
     public class ConveyorBelt : Machine
     {   

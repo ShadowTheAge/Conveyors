@@ -1,7 +1,7 @@
 ﻿using System;
 using Simulation;
 
-namespace Next
+namespace Model
 {
     public enum RecipeTag
     {
@@ -28,7 +28,7 @@ namespace Next
         {
             if (variants != null)
             {
-                var value = machine.world.random.NextDouble();
+                var value = machine.modelWorld.random.NextDouble();
                 foreach (var variant in variants)
                 {
                     value -= variant.probability;
@@ -55,7 +55,7 @@ namespace Next
             {
                 var item = results[i].GetItem(machine);
                 if (item != Item.None)
-                    machine.outputs[i].item = item;
+                    machine.outputs[i].buffer = item;
             }
         }
     }

@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Model;
 
 namespace Simulation
 {

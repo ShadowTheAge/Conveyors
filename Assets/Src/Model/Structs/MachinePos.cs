@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEditor;
+﻿using System.Collections.Generic;
 
-namespace Simulation
+namespace Model
 {
     public enum Direction : byte
     {
